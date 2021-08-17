@@ -84,7 +84,7 @@ do
   ffmpeg -i $input_name -c:v libx256 -map 0 -c:s dvd_subtitle -crf 20 $output_name | tee -a $log_file
 
   # check for the exit code of ffmpeg to determine success (=delete the source file) or failure (=delete destination)
-  if [[ $? -eq 0 ]]
+  if [[ ${PIPESTATUS[0]} -eq 0 ]]
   then
     echo "Conversion succeeded. Deleting source file..." | tee -a $log_file
     rm -v $input_name | tee -a $log_file
