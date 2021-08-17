@@ -63,25 +63,25 @@ do
   if ! [[ -r $input_name ]]
   then
     echo "File '$input_name' does not exists or user has no permission to read it." | tee -a $log_file
-    echo "Skipping File..." | tee -a $log_file
+    echo "Skipping file..." | tee -a $log_file
     skipped_files+=("\n$input_name")
     continue
   fi
 
-  # check if input and output file names are the same (would result in strange overrides
-  if [[ $input_name = $output_name ]]
+  # check if output file already exists
+  if [[ -a $output_name ]]
   then
-    echo "Input and output file names are the same. This is not allowed for this script." | tee -a $log_file
-    echo "Skipping File..." | tee -a $log_file
+    echo "Output file '$output_name' does already exist." | tee -a $log_file
+    echo "Skipping file..." | tee -a $log_file
     skipped_files+=("\n$input_name")
     continue
   fi
-  
+
   # create output directory if it does not exist
   mkdir -p "$(dirname $output_name)" | tee -a $log_file
 
   # convert video file
-  ffmpeg -i $input_name -c:v libx256 -map 0 -c:s dvd_subtitle -crf 20 $output_name | tee -a $log_file
+  ffmpeg -nostdin -i $input_name -c:v libx265 -map 0 -c:s dvd_subtitle -crf 20 $output_name | tee -a $log_file
 
   # check for the exit code of ffmpeg to determine success (=delete the source file) or failure (=delete destination)
   if [[ ${PIPESTATUS[0]} -eq 0 ]]
