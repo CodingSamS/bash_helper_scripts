@@ -3,7 +3,7 @@
 log_file="/dev/null"
 
 print_help() {
-  echo "This script is for converting blu rays to compressed mkv files in order to save space"
+  echo "This script is for converting videos to compressed mkv files in order to save space"
   echo ""
   echo "Options:"
   echo ""
