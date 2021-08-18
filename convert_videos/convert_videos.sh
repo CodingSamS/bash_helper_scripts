@@ -98,9 +98,9 @@ do
   fi
 
   # removing input and output directories (and their parents) if they are empty
-  output_dirname=$(dirname "output_name")
+  output_dirname=$(dirname "$output_name")
   rmdir -pv "$output_dirname" | tee -a "$log_file"
-  input_dirname=$(dirname "input_name")
+  input_dirname=$(dirname "$input_name")
   rmdir -pv "$input_dirname" | tee -a "$log_file"
   echo "input: $input_name"
   echo "output: $output_name"
