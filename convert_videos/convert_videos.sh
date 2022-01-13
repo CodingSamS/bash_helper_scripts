@@ -83,7 +83,7 @@ do
   mkdir -pv "$output_dirname" | tee -a "$log_file"
 
   # convert video file
-  ffmpeg -nostdin -i "$input_name" -c:v libx265 -map 0 -c:s dvd_subtitle -crf 20 "$output_name" | tee -a "$log_file"
+  ffmpeg -nostdin -i "$input_name" -c:v libx265 -map 0 -c:s copy -crf 20 "$output_name" | tee -a "$log_file"
 
   # check for the exit code of ffmpeg to determine success (=delete the source file) or failure (=delete destination)
   if [[ ${PIPESTATUS[0]} -eq 0 ]]
